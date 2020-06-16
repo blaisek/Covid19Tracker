@@ -1,0 +1,22 @@
+
+
+<div>
+  <div style="text-align:center">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+  <div>
+    <button (click)="load()">test</button>
+  </div>
+
+  <div>
+    <ul>
+      <li *ngFor= "let item of data$|async">
+
+        {{item|json}}
+
+      </li>
+    </ul>
+  </div>
+</div>
