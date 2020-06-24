@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 
 
-export class AppComponent  {
+export class AppComponent implements OnInit {
 
   title = 'Covid19Tracker';
   data$: Observable<any>;
@@ -18,14 +18,14 @@ export class AppComponent  {
     private _api: GithubApiService
   ){}
 
+  ngOnInit(){
+    this.load();
+  }
 
  async load(){
     await this._api.getData().catch(err => err);
     this.data$ =  this._api.data$;
   }
-
-
-
 }
 
 

@@ -1,0 +1,12 @@
+#map{
+  display: block;
+  height: 400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.ol-viewport, .ol-layer, canvas {
+  height: 100%!important;
+  width: 100%!important;
+}

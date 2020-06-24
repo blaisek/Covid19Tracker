@@ -8,17 +8,24 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { GithubApiService } from './Service/github-api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import {GroupByPipe} from '../app/pipes/group-by-pipe';
+import { OlMapComponent } from './olmap/olmap.component';
+import { IonicModule } from '@ionic/angular';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GroupByPipe,
+    OlMapComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    IonicModule.forRoot({
+      mode: 'md'
+    })
   ],
   providers: [
     GithubApiService
