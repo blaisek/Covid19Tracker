@@ -5,26 +5,26 @@ import { BehaviorSubject } from 'rxjs';
 
 const mockdata = [
 
-{
+    {
 
-// Type d'object:
+    // Type d'object:
 
-// Active: "67"
-// Admin2: "Abbeville"
-// Case-Fatality_Ratio: "US""
-// Combined_Key: ""Abbeville"
-// Confirmed: "67"
-// Country_Region: "US"
-// Deaths: "0"
-// FIPS: "45001"
-// Incidence_Rate: " South Carolina"
-// Last_Update: "2020-06-15 03:33:14"
-// Lat: "34.22333378"
-// Long_: "-82.46170658"
-// Province_State: "South Carolina"
-// Recovered: "0"
+    // Active: "67"
+    // Admin2: "Abbeville"
+    // Case-Fatality_Ratio: "US""
+    // Combined_Key: ""Abbeville"
+    // Confirmed: "67"
+    // Country_Region: "US"
+    // Deaths: "0"
+    // FIPS: "45001"
+    // Incidence_Rate: " South Carolina"
+    // Last_Update: "2020-06-15 03:33:14"
+    // Lat: "34.22333378"
+    // Long_: "-82.46170658"
+    // Province_State: "South Carolina"
+    // Recovered: "0"
 
-}
+    }
 
 ];
 
@@ -35,7 +35,7 @@ export class GithubApiService {
 
 
   date = new Date();
-  day = this.date.getDate() - 1 < 10 ? '0' + (this.date.getDate() - 1) : (this.date.getDate() - 1).toString();
+  day = this.date.getDate() < 10 ? '0' + (this.date.getDate() - 2) : (this.date.getDate() - 2).toString();
   month = this.date.getMonth() < 10 ?  '0' + (this.date.getMonth() + 1) : (this.date.getMonth() + 1).toString();
   year = this.date.getFullYear();
 
@@ -51,28 +51,33 @@ export class GithubApiService {
 
   async getData() {
 
-    const data = await this._httpClient.get(this.apiUrl).toPromise().then((resp: any) => {
-      const {content = ''} = resp;
-      return decodeURIComponent(escape(window.atob( content )));
-    }).then(csv => {
-      const titles = csv.slice(0, csv.indexOf('\n')).split(',');
-      const rows = csv.slice(csv.indexOf('\n') + 1).split('\n');
-      const data = rows.map(row => {
-        const values = row.split(',');
-        return titles.reduce((object, curr, i) => (object[curr] = values[i], object), {});
-      });
-      return data;
-    })
-    .then(data => {
-      return data.map(el => {
-        return {
-          ...el,
-          Confirmed: parseInt(el['Confirmed'], 10)
-        }
+    try{
+
+      const data = await this._httpClient.get(this.apiUrl).toPromise().then((resp: any) => {
+        const {content = ''} = resp;
+        return decodeURIComponent(escape(window.atob( content )));
+      }).then(csv => {
+        const titles = csv.slice(0, csv.indexOf('\n')).split(',');
+        const rows = csv.slice(csv.indexOf('\n') + 1).split('\n');
+        const data = rows.map(row => {
+          const values = row.split(',');
+          return titles.reduce((object, curr, i) => (object[curr] = values[i], object), {});
+        });
+        return data;
       })
-    })
-    ;
-    this._data$.next(data); // push dans l'observable le flux de data
+      .then(data => {
+        return data.map(el => {
+          return {
+            ...el,
+            Confirmed: parseInt(el['Confirmed'], 10)
+          }
+        })
+      });
+      this._data$.next(data); // push dans l'observable le flux de data
+    }
+    catch (e) {
+      alert("la limite d'appel a été atteinte, Veuillez reessayer plus tard");
+    }
   }
 
 

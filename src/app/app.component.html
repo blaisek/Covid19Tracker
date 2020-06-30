@@ -10,13 +10,13 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ul>
-          <li *ngFor= "let item of data$|async|groupBy:'Country_Region'">
+        <ol>
+          <li (click)="handleAction(item)" *ngFor= "let item of data$|async|groupBy:'Country_Region'">
 
             {{item.key}}
 
           </li>
-        </ul>
+        </ol>
       </ion-content>
     </ion-menu>
 
@@ -26,7 +26,11 @@
   <ion-content id="main">
     <ion-card>
       <app-map [data]="data$|async|groupBy:'Country_Region'"
-    [options]="{radiusMarkerKey:'Confirmed',zoom: 1}"></app-map>
+    [options]="{radiusMarkerKey:'Confirmed',zoom: 2}"
+    (action)="handleAction($event)"></app-map>
+    </ion-card>
+    <ion-card>
+      <app-chart></app-chart>
     </ion-card>
   </ion-content>
 </ion-split-pane>

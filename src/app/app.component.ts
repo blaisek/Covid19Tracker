@@ -26,6 +26,11 @@ export class AppComponent implements OnInit {
     await this._api.getData().catch(err => err);
     this.data$ =  this._api.data$;
   }
+
+  async handleAction($event){
+    console.log('output', $event);
+
+  }
 }
 
 
