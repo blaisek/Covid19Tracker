@@ -6,12 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { GithubApiService } from './Service/github-api.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {GroupByPipe} from '../app/pipes/group-by-pipe';
 import { OlMapComponent } from '../app/components/olmap/olmap.component';
 import { IonicModule } from '@ionic/angular';
 import { ChartComponent } from '../app/components/chart/chart.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { ChartService } from './Service/chart.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +32,9 @@ import { DetailComponent } from './components/detail/detail.component';
     })
   ],
   providers: [
-    GithubApiService
+    GithubApiService,
+    ChartService,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

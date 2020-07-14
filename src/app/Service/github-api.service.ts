@@ -3,30 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
-const mockdata = [
-
-    {
-
-    // Type d'object:
-
-    // Active: "67"
-    // Admin2: "Abbeville"
-    // Case-Fatality_Ratio: "US""
-    // Combined_Key: ""Abbeville"
-    // Confirmed: "67"
-    // Country_Region: "US"
-    // Deaths: "0"
-    // FIPS: "45001"
-    // Incidence_Rate: " South Carolina"
-    // Last_Update: "2020-06-15 03:33:14"
-    // Lat: "34.22333378"
-    // Long_: "-82.46170658"
-    // Province_State: "South Carolina"
-    // Recovered: "0"
-
-    }
-
-];
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubApiService } from './Service/github-api.service';
 import { Observable } from 'rxjs';
+import { ChartService } from './Service/chart.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   title = 'Covid19Tracker';
   data$: Observable<any>;
   constructor(
-    private _api: GithubApiService
+    private _api: GithubApiService,
+    private _chart: ChartService,
   ){}
 
   ngOnInit(){
@@ -27,8 +29,21 @@ export class AppComponent implements OnInit {
     this.data$ =  this._api.data$;
   }
 
-  async handleAction($event){
-    console.log('output', $event);
+  handleAction(event){
+
+    const {type, payload} = event;
+
+    switch (type) {
+
+      case 'geoMarker':
+      // console.log(payload.Country_Region);
+      this._chart.chart(payload.Country_Region);
+      break;
+
+      default:
+      // console.log(event.key);
+      this._chart.chart(event.key);
+    }
 
   }
 }
