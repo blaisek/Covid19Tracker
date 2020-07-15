@@ -10,21 +10,15 @@ import {Chart} from 'chart.js';
 export class ChartService {
 
   public mainChart: Chart;
-  private _country$ : BehaviorSubject<string> = new BehaviorSubject<string>('pays');
-  public country$ = this._country$.asObservable();
-
+  private _data$: BehaviorSubject<any> = new BehaviorSubject([]);
+  public data$ = this._data$.asObservable();
 
   constructor() {}
 
-  chart(event){
+  chart(data){
 
-      this._country$.next(event);
-      console.log(event);
+      this._data$.next(data);
 
   }
 
-  getCountry() {
-
-    return this.country$;
-  }
 }

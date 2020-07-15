@@ -31,18 +31,40 @@ export class AppComponent implements OnInit {
 
   handleAction(event){
 
-    const {type, payload} = event;
+    const {type, key, payload} = event;
+
 
     switch (type) {
 
       case 'geoMarker':
-      // console.log(payload.Country_Region);
-      this._chart.chart(payload.Country_Region);
-      break;
+
+        const CountryRegion = payload.Combined_Key;
+        const Confirmed = payload.Confirmed;
+        const Death = payload.Deaths;
+        const Recovered = payload.Recovered;
+        const Active = payload.Active;
+        this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
+
+        break;
 
       default:
-      // console.log(event.key);
-      this._chart.chart(event.key);
+
+        // const data = [
+        //   payload.value.reduce((prev, next) => {
+        //     return prev + parseInt(next.Confirmed, 10);
+        //   }, 0),
+        //   payload.value.reduce((prev, next) => {
+        //     return prev + parseInt(next.Recovered, 10);
+        //   }, 0),
+        //   payload.value.reduce((prev, next) => {
+        //     return prev + parseInt(next.Active, 10);
+        //   }, 0),
+        //   payload.value.reduce((prev, next) => {
+        //     return prev + parseInt(next.Deaths, 10);
+        //   }, 0)
+        // ];
+
+        console.log(event.key,event.totalConfirmed,event.value);
     }
 
   }

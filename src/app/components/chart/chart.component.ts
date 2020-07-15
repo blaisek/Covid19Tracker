@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy} from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
 import {Chart} from 'chart.js';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ChartService } from 'src/app/Service/chart.service';
 
 
@@ -14,26 +14,32 @@ import { ChartService } from 'src/app/Service/chart.service';
 export class ChartComponent implements AfterViewInit, OnDestroy {
 
   public mainChart: Chart;
-  public country$: Observable<string>;
-  public sub: Subscription;
-  name:string;
+  public countryName: string;
+  public Confirmed: string;
+  public Death: string;
+  public Recovered: string;
+  public Active: string;
+  public dataSub: Subscription;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
-  @Input() country: string;
 
   constructor( private chart: ChartService ) {}
 
 ngAfterViewInit(){
-  this.sub = this.chart.country$.subscribe( (name) => {
-    this.name = name;
-    this.init();
-  });
+  this.dataSub = this.chart.data$.subscribe((data) => {
 
+    this.countryName = data.CountryRegion;
+    this.Confirmed = data.Confirmed;
+    this.Death = data.Death;
+    this.Recovered = data.Recovered;
+    this.Active = data.Active;
+    this.init();
+
+  });
 
 }
 
 
   init(){
-
 
       const ctx = this.canvas.nativeElement.getContext('2d');
       this.mainChart = new Chart(ctx, {
@@ -41,8 +47,8 @@ ngAfterViewInit(){
         data: {
             labels: ['Confirmed', 'Death', 'Recovered', 'Active'],
             datasets: [{
-                label: this.name,
-                data: [10, 2, 7, 3],
+                label: this.countryName,
+                data: [this.Confirmed, this.Death, this.Recovered, this.Active],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -72,6 +78,6 @@ ngAfterViewInit(){
   }
 
   ngOnDestroy(){
-    this.sub.unsubscribe();
+    this.dataSub.unsubscribe();
   }
 }
