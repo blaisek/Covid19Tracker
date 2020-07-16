@@ -25,6 +25,7 @@ export class ChartComponent implements AfterViewInit, OnDestroy {
   constructor( private chart: ChartService ) {}
 
 ngAfterViewInit(){
+
   this.dataSub = this.chart.data$.subscribe((data) => {
 
     this.countryName = data.CountryRegion;
@@ -32,22 +33,33 @@ ngAfterViewInit(){
     this.Death = data.Death;
     this.Recovered = data.Recovered;
     this.Active = data.Active;
-    this.init();
+
+    if (this.mainChart){
+      this.mainChart.destroy();
+    }
+
+    this.initChart();
 
   });
 
 }
 
 
-  init(){
+ngOnDestroy(){
+  this.dataSub.unsubscribe();
+}
+
+
+  initChart(){
+
 
       const ctx = this.canvas.nativeElement.getContext('2d');
       this.mainChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Confirmed', 'Death', 'Recovered', 'Active'],
+            labels: ['Confirmed', 'Deaths', 'Recovered', 'Active'],
             datasets: [{
-                label: this.countryName,
+                label: this.countryName || 'Country',
                 data: [this.Confirmed, this.Death, this.Recovered, this.Active],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -75,9 +87,5 @@ ngAfterViewInit(){
         }
     });
 
-  }
-
-  ngOnDestroy(){
-    this.dataSub.unsubscribe();
   }
 }

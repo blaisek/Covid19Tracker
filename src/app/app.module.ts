@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { GithubApiService } from './Service/github-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import {GroupByPipe} from '../app/pipes/group-by-pipe';
+import {TotalByPipe} from '../app/pipes/total-by-pipe';
 import { OlMapComponent } from '../app/components/olmap/olmap.component';
 import { IonicModule } from '@ionic/angular';
 import { ChartComponent } from '../app/components/chart/chart.component';
@@ -17,6 +18,7 @@ import { ChartService } from './Service/chart.service';
   declarations: [
     AppComponent,
     GroupByPipe,
+    TotalByPipe,
     OlMapComponent,
     ChartComponent,
     DetailComponent

@@ -1,8 +1,6 @@
 
 <ion-app>
-
   <ion-split-pane contentId="main">
-    <!--  the side menu  -->
     <ion-menu contentId="main">
       <ion-header>
         <ion-toolbar>
@@ -10,23 +8,25 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ol>
-          <li (click)="handleAction(item)" *ngFor= "let item of data$|async|groupBy:'Country_Region'">
-
-            {{item.key}}
-
-          </li>
-        </ol>
+          <ion-list>
+            <ion-item
+              (click)="handleAction(item)"
+              *ngFor= "let item of data$|async|groupBy:'Country_Region';let i = index">
+              <ion-chip slot="start">
+                {{i + 1}}
+              </ion-chip>
+              {{item?.key}}
+              <ion-badge slot="end">
+                {{item?.value|totalBy:"Deaths"}}
+              </ion-badge>
+            </ion-item>
+          </ion-list>
       </ion-content>
     </ion-menu>
-
-    <!-- the main content -->
-    <!-- <ion-router-outlet id="main"></ion-router-outlet> -->
-
   <ion-content id="main">
     <ion-card>
       <app-map [data]="data$|async|groupBy:'Country_Region'"
-    [options]="{radiusMarkerKey:'Confirmed',zoom: 2}"
+    [options]="{radiusMarkerKey:'Deaths',zoom: 1}"
     (action)="handleAction($event)"></app-map>
     </ion-card>
     <ion-card>
@@ -34,25 +34,4 @@
     </ion-card>
   </ion-content>
 </ion-split-pane>
-
 </ion-app>
-
-
-  <!-- <div style="text-align:center">
-    <h1>
-      {{ title }}
-    </h1>
-  </div>
-
-    <button (click)="load()">test</button>
-    <app-map [data]="data$|async|groupBy:'Country_Region'"
-    [options]="{radiusMarkerKey:'Confirmed',zoom: 6}"></app-map>
-<div>
-  <ul>
-    <li *ngFor= "let item of data$|async|groupBy:'Country_Region'">
-
-      {{item.key}}
-
-    </li>
-  </ul>
-</div> -->

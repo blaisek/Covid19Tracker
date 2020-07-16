@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -18,8 +17,8 @@ export class GithubApiService {
   baseApi = 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data/csse_covid_19_daily_reports';
 
   apiUrl = `${this.baseApi}/${this.month}-${this.day}-${this.year}.csv`;
-  private _data$: BehaviorSubject<any> = new BehaviorSubject([]); // observable qui accepte le type tableau
-  public data$ = this._data$.asObservable(); // abbonement au flux de l'observable
+  private _data$: BehaviorSubject<any> = new BehaviorSubject([]);
+  public data$ = this._data$.asObservable();
 
   constructor(
     private _httpClient: HttpClient
@@ -45,14 +44,14 @@ export class GithubApiService {
         return data.map(el => {
           return {
             ...el,
-            Confirmed: parseInt(el['Confirmed'], 10)
-          }
-        })
+            Deaths: parseInt(el['Deaths'], 20)
+          };
+        });
       });
-      this._data$.next(data); // push dans l'observable le flux de data
+      this._data$.next(data);
     }
     catch (e) {
-      alert("la limite d'appel a été atteinte, Veuillez reessayer plus tard");
+      alert('an error occurred, please try later');
     }
   }
 

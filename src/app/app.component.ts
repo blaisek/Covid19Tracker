@@ -31,42 +31,31 @@ export class AppComponent implements OnInit {
 
   handleAction(event){
 
-    const {type, key, payload} = event;
+    const {type, payload} = event;
 
-
-    switch (type) {
-
-      case 'geoMarker':
-
-        const CountryRegion = payload.Combined_Key;
-        const Confirmed = payload.Confirmed;
-        const Death = payload.Deaths;
-        const Recovered = payload.Recovered;
-        const Active = payload.Active;
-        this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
-
-        break;
-
-      default:
-
-        // const data = [
-        //   payload.value.reduce((prev, next) => {
-        //     return prev + parseInt(next.Confirmed, 10);
-        //   }, 0),
-        //   payload.value.reduce((prev, next) => {
-        //     return prev + parseInt(next.Recovered, 10);
-        //   }, 0),
-        //   payload.value.reduce((prev, next) => {
-        //     return prev + parseInt(next.Active, 10);
-        //   }, 0),
-        //   payload.value.reduce((prev, next) => {
-        //     return prev + parseInt(next.Deaths, 10);
-        //   }, 0)
-        // ];
-
-        console.log(event.key,event.totalConfirmed,event.value);
+    if (type === 'geoMarker') {
+      const CountryRegion = payload.Combined_Key;
+      const Confirmed = payload.Confirmed;
+      const Death = payload.Deaths;
+      const Recovered = payload.Recovered;
+      const Active = payload.Active;
+      this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
+    }else{
+      const CountryRegion = event.key;
+      const Confirmed = event.value.reduce((prev, next) => {
+                return prev + parseInt(next.Confirmed, 10);
+              }, 0);
+      const Death = event.value.reduce((prev, next) => {
+                return prev + parseInt(next.Deaths, 10);
+              }, 0);
+      const Recovered = event.value.reduce((prev, next) => {
+                return prev + parseInt(next.Recovered, 10);
+              }, 0);
+      const Active = event.value.reduce((prev, next) => {
+                return prev + parseInt(next.Active, 10);
+              }, 0);
+      this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
     }
-
   }
 }
 
