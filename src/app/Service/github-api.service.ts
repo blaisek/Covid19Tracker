@@ -44,7 +44,7 @@ export class GithubApiService {
         return data.map(el => {
           return {
             ...el,
-            Deaths: parseInt(el['Deaths'], 20)
+            Deaths: parseInt(el['Deaths'], 10)
           };
         });
       });

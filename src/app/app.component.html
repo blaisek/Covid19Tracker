@@ -6,17 +6,20 @@
         <ion-toolbar>
           <ion-title>{{ title }}</ion-title>
         </ion-toolbar>
+        <ion-toolbar>
+          <ion-searchbar animated (ionChange)="searchCountry($event)"></ion-searchbar>
+        </ion-toolbar>
       </ion-header>
       <ion-content>
           <ion-list>
             <ion-item
               (click)="handleAction(item)"
-              *ngFor= "let item of data$|async|groupBy:'Country_Region';let i = index">
-              <ion-chip slot="start">
+              *ngFor= "let item of data$|async|groupBy:'Country_Region'|filtre:search;let i = index">
+              <ion-chip mode="ios" slot="start">
                 {{i + 1}}
               </ion-chip>
-              {{item?.key}}
-              <ion-badge slot="end">
+              <ion-label>{{item?.key}} </ion-label>
+              <ion-badge color="danger" mode="ios" slot="end">
                 {{item?.value|totalBy:"Deaths"}}
               </ion-badge>
             </ion-item>

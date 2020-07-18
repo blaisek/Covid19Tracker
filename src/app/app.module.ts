@@ -7,21 +7,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { GithubApiService } from './Service/github-api.service';
 import { HttpClientModule } from '@angular/common/http';
-import {GroupByPipe} from '../app/pipes/group-by-pipe';
-import {TotalByPipe} from '../app/pipes/total-by-pipe';
-import { OlMapComponent } from '../app/components/olmap/olmap.component';
 import { IonicModule } from '@ionic/angular';
-import { ChartComponent } from '../app/components/chart/chart.component';
-import { DetailComponent } from './components/detail/detail.component';
 import { ChartService } from './Service/chart.service';
+import {PIPES} from './pipes/index';
+import {COMPONENT} from './components/index';
 @NgModule({
   declarations: [
     AppComponent,
-    GroupByPipe,
-    TotalByPipe,
-    OlMapComponent,
-    ChartComponent,
-    DetailComponent
+    PIPES,
+    COMPONENT
   ],
   imports: [
     BrowserModule,
@@ -30,7 +24,7 @@ import { ChartService } from './Service/chart.service';
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     IonicModule.forRoot({
-      mode: 'md'
+      mode: 'ios'
     })
   ],
   providers: [

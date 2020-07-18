@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   title = 'Covid19Tracker';
   data$: Observable<any>;
+  public search = '' ;
   constructor(
     private _api: GithubApiService,
     private _chart: ChartService,
@@ -27,6 +28,13 @@ export class AppComponent implements OnInit {
  async load(){
     await this._api.getData().catch(err => err);
     this.data$ =  this._api.data$;
+  }
+
+  searchCountry(event){
+
+    const search = event.detail.value;
+
+    this.search = search;
   }
 
   handleAction(event){
