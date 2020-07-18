@@ -1,6 +1,6 @@
 
 <ion-app>
-  <ion-split-pane contentId="main">
+  <ion-split-pane when="md" contentId="main">
     <ion-menu contentId="main">
       <ion-header>
         <ion-toolbar>
@@ -29,7 +29,7 @@
   <ion-content id="main">
     <ion-card>
       <app-map [data]="data$|async|groupBy:'Country_Region'"
-    [options]="{radiusMarkerKey:'Deaths',zoom: 1}"
+    [options]="{radiusMarkerKey:'Deaths',zoom: 2}"
     (action)="handleAction($event)"></app-map>
     </ion-card>
     <ion-card>
