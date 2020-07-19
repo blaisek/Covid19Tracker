@@ -21,7 +21,6 @@ export class GithubApiService {
 
 
   getDate() {
-    // reprendre la date
     const date = new Date();
     this.month = (date.getMonth() + 1);
     this.day = (date.getDate() - 1);
@@ -36,7 +35,6 @@ export class GithubApiService {
     if (this.day < 1 && this.month === 10) {this.day = 30; this.month = 9; }
     if (this.day < 1 && this.month === 12) {this.day = 30; this.month = 11; }
     else if (this.day < 1){this.month = this.month - 1 ; this.day = 31; }
-
   }
 
   async getData() {
