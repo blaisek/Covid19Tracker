@@ -29,7 +29,7 @@
   <ion-content id="main">
     <ion-card>
       <app-map [data]="data$|async|groupBy:'Country_Region'"
-    [options]="{radiusMarkerKey:'Deaths',zoom: 2}"
+    [options]="{radiusMarkerKey:'Deaths',zoom: 1}"
     (action)="handleAction($event)"></app-map>
     </ion-card>
     <ion-card>

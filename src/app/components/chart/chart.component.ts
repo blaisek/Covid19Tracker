@@ -7,7 +7,7 @@ import { ChartService } from 'src/app/Service/chart.service';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+
 })
 
 
@@ -62,14 +62,14 @@ ngOnDestroy(){
                 label: this.countryName || 'Country',
                 data: [this.Confirmed, this.Death, this.Recovered, this.Active],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)'
                 ],

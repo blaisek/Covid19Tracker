@@ -11,7 +11,7 @@ import { ChartService } from './Service/chart.service';
 })
 
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
 
   title = 'Covid19Tracker';
   data$: Observable<any>;
@@ -64,6 +64,7 @@ export class AppComponent implements OnInit {
               }, 0);
       this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
     }
+
   }
 }
 

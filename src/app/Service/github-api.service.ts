@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,27 +8,44 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class GithubApiService {
 
-
-  date = new Date();
-  day = this.date.getDate() < 10 ? '0' + (this.date.getDate() - 2) : (this.date.getDate() - 2).toString();
-  month = this.date.getMonth() < 10 ?  '0' + (this.date.getMonth() + 1) : (this.date.getMonth() + 1).toString();
-  year = this.date.getFullYear();
-
-  baseApi = 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data/csse_covid_19_daily_reports';
-
-  apiUrl = `${this.baseApi}/${this.month}-${this.day}-${this.year}.csv`;
   private _data$: BehaviorSubject<any> = new BehaviorSubject([]);
   public data$ = this._data$.asObservable();
+  public day: any ;
+  public month: any;
+  public year: number;
+  private _baseApi = 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data/csse_covid_19_daily_reports';
 
   constructor(
     private _httpClient: HttpClient
     ) {}
 
+
+  getDate() {
+    // reprendre la date
+    const date = new Date();
+    this.month = (date.getMonth() + 1);
+    this.day = (date.getDate() - 1);
+    this.year = date.getFullYear();
+
+    if (this.day < 10 && this.day >= 1){ this.day = ( '0' + this.day.toString() ); }
+    if (this.month < 10){ this.month = ( '0' + this.month.toString()); }
+
+    if (this.day < 1 && this.month === 3 ) { this.day = 28; this.month = 2; }
+    if (this.day < 1 && this.month === 5)  { this.day = 30; this.month = 4; }
+    if (this.day < 1 && this.month === 7)  {this.day = 30; this.month = 6; }
+    if (this.day < 1 && this.month === 10) {this.day = 30; this.month = 9; }
+    if (this.day < 1 && this.month === 12) {this.day = 30; this.month = 11; }
+    else if (this.day < 1){this.month = this.month - 1 ; this.day = 31; }
+
+  }
+
   async getData() {
+  this.getDate();
+  try{
 
-    try{
+  const apiUrl = `${this._baseApi}/${this.month}-${this.day}-${this.year}.csv`;
 
-      const data = await this._httpClient.get(this.apiUrl).toPromise().then((resp: any) => {
+  const data = await this._httpClient.get(apiUrl).toPromise().then((resp: any) => {
         const {content = ''} = resp;
         return decodeURIComponent(escape(window.atob( content )));
       }).then(csv => {
@@ -44,7 +61,10 @@ export class GithubApiService {
         return data.map(el => {
           return {
             ...el,
-            Deaths: parseInt(el['Deaths'], 10)
+            Confirmed: parseInt(el['Confirmed'], 10),
+            Deaths: parseInt(el['Deaths'], 10),
+            Active: parseInt(el['Active'], 10),
+            Recovered: parseInt(el['Recovered'], 10),
           };
         });
       });
@@ -52,6 +72,8 @@ export class GithubApiService {
     }
     catch (e) {
       alert('an error occurred, please try later');
+      console.log(e);
+
     }
   }
 
