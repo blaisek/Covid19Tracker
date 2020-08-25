@@ -28,12 +28,12 @@ export class GithubApiService {
     if (this.day < 10 && this.day >= 1){ this.day = ( '0' + this.day.toString() ); }
     if (this.month < 10){ this.month = ( '0' + this.month.toString()); }
 
-    if (this.day < 1 && this.month === 3 ) { this.day = 28; this.month = '02'; }
-    if (this.day < 1 && this.month === 5)  { this.day = 30; this.month = '04'; }
-    if (this.day < 1 && this.month === 7)  {this.day = 30; this.month = '06'; }
-    if (this.day < 1 && this.month === 10) {this.day = 30; this.month = '09'; }
-    if (this.day < 1 && this.month === 12) {this.day = 30; this.month = 11; }
-    else if (this.day < 1 && this.month < 10  ){this.month = ('0' + (this.month - 1).toString()) ; this.day = 31; }
+    if (this.day === 0 && this.month === 3 ) { this.day = 28; this.month = '02'; }
+    if (this.day === 0 && this.month === 5)  { this.day = 30; this.month = '04'; }
+    if (this.day === 0 && this.month === 7)  {this.day = 30; this.month = '06'; }
+    if (this.day === 0 && this.month === 10) {this.day = 30; this.month = '09'; }
+    if (this.day === 0 && this.month === 12) {this.day = 30; this.month = 11; }
+    else if (this.day === 0 && this.month < 10  ){this.month = ('0' + (this.month - 1).toString()) ; this.day = 31; }
   }
 
   async getData() {

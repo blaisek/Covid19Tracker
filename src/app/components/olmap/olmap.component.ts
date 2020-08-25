@@ -39,7 +39,7 @@ export class OlMapComponent implements AfterViewInit, OnChanges {
     // init DOM
     setTimeout(() => {
       this.init();
-    }, 1000);
+    }, 2000);
   }
 
   init() {
