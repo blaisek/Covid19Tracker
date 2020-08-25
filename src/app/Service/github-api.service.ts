@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,7 @@ export class GithubApiService {
   public day: any ;
   public month: any;
   public year: number;
-  private _baseApi = 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data/csse_covid_19_daily_reports';
-
+  private _baseApi = environment.Api;
   constructor(
     private _httpClient: HttpClient
     ) {}
