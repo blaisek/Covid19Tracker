@@ -67,9 +67,23 @@ export class AppComponent implements OnInit{
                 return prev + parseInt(next.Active, 10);
               }, 0);
       this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
-      let coor = [event.value[0].Long_, event.value[0].Lat];
-      let zoom = 5;
-      this._mapView.mapCenter(coor, zoom);
+
+      if ( event.key === 'France'){
+        let coor = [2.3514616, 48.8566969];
+        let zoom = 5;
+        return this._mapView.mapCenter(coor, zoom);
+      } else if (event.key === 'United Kingdom'){
+        let coor = [-0.12755, 51.507222];
+        let zoom = 5;
+        return this._mapView.mapCenter(coor, zoom);
+      } else {
+        let coor = [event.value[0].Long_, event.value[0].Lat];
+        let zoom = 5;
+        this._mapView.mapCenter(coor, zoom);
+      }
+
+      // console.log(event);
+
     }
 
   }
