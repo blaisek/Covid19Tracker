@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GithubApiService } from './Service/github-api.service';
 import { Observable } from 'rxjs';
 import { ChartService } from './Service/chart.service';
+import { MapService } from './Service/map.service';
 
 
 @Component({
@@ -15,10 +16,12 @@ export class AppComponent implements OnInit{
 
   title = 'Covid19Tracker';
   data$: Observable<any>;
+
   public search = '' ;
   constructor(
     private _api: GithubApiService,
     private _chart: ChartService,
+    private _mapView: MapService
   ){}
 
   ngOnInit(){
@@ -36,6 +39,7 @@ export class AppComponent implements OnInit{
 
     this.search = search;
   }
+
 
   handleAction(event){
 
@@ -63,6 +67,9 @@ export class AppComponent implements OnInit{
                 return prev + parseInt(next.Active, 10);
               }, 0);
       this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
+      let coor = [event.value[0].Long_, event.value[0].Lat];
+      let zoom = 5;
+      this._mapView.mapCenter(coor, zoom);
     }
 
   }

@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, AfterViewInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import olMap from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -9,6 +9,8 @@ import { Feature } from 'ol';
 import { fromLonLat } from 'ol/proj';
 import Point from 'ol/geom/Point';
 import VectorSource from 'ol/source/Vector';
+import { MapService } from 'src/app/Service/map.service';
+import { Subscription } from 'rxjs';
 
 // build flat Map
 const flatMap = (fn, arr: any[]): any[] => [].concat.apply([], arr.map(fn));
@@ -19,14 +21,18 @@ const flatMap = (fn, arr: any[]): any[] => [].concat.apply([], arr.map(fn));
   styleUrls: ['./olmap.component.scss']
 })
 
-export class OlMapComponent implements AfterViewInit, OnChanges {
+export class OlMapComponent implements AfterViewInit, OnChanges , OnDestroy {
 
   @ViewChild('map') map: ElementRef<HTMLElement>;
   @Input() data: any[];
   @Input() options: {radiusMarkerKey?: string, center?: number[], zoom?: number};
   @Output() action: EventEmitter<{type: string; payload: any}> = new EventEmitter();
+
   olMap: olMap;
   markersLayer: any;
+  public viewState$: Subscription;
+  view: View;
+  constructor(private _coord: MapService){}
 
 
   ngOnChanges(changes: SimpleChanges) {
@@ -44,17 +50,17 @@ export class OlMapComponent implements AfterViewInit, OnChanges {
 
   init() {
     const center = fromLonLat(
-      this.options.center || [15.322222, -4.325 ]
+      this.options.center
     );
     this.buildMarkersLayer();
     // build map view
-    const view = new View({
+    this.view = new View({
       center,
-      zoom: this.options.zoom || 5.55,
+      zoom: this.options.zoom
     });
     // build map
     this.olMap = new olMap({
-      view,
+      view : this.view,
       target: this.map.nativeElement,
       controls: [], // add custom controls deh
       layers: [
@@ -77,6 +83,21 @@ export class OlMapComponent implements AfterViewInit, OnChanges {
     this._addClickEvent();
     // add markers
     this.addFeatures();
+    this.viewState$ = this._coord.mapCenters$.subscribe(data => {
+        // écrire une fonction pour rafraichir la vue avec les nouvelles coordonnée
+        // grace à l'observable
+        const coor = data.options;
+        if (coor !== undefined) {
+          const longLat = fromLonLat(coor);
+
+          this.view.animate({
+            center: longLat,
+            zoom: data.zoom,
+            duration: 2000
+          });
+
+        }
+    });
   }
 
   addFeatures() {
@@ -155,11 +176,15 @@ export class OlMapComponent implements AfterViewInit, OnChanges {
       if (!feature) return;
       const payload = feature.getProperties();
       if (!payload) return;
-      console.log(payload);
+      // console.log(payload);
       this.action.emit({
         type: payload.type,
         payload
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.viewState$.unsubscribe();
   }
 }
