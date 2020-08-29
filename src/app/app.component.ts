@@ -40,6 +40,22 @@ export class AppComponent implements OnInit{
     this.search = search;
   }
 
+  getCoordonate(event) {
+
+    if ( event.key === 'France'){
+      let coor = [2.3514616, 48.8566969];
+      let zoom = 5;
+      return this._mapView.mapCenter(coor, zoom);
+    } else if (event.key === 'United Kingdom'){
+      let coor = [-0.12755, 51.507222];
+      let zoom = 5;
+      return this._mapView.mapCenter(coor, zoom);
+    } else {
+      let coor = [event.value[0].Long_, event.value[0].Lat];
+      let zoom = 5;
+      this._mapView.mapCenter(coor, zoom);
+    }
+  }
 
   handleAction(event){
 
@@ -52,7 +68,10 @@ export class AppComponent implements OnInit{
       const Recovered = payload.Recovered;
       const Active = payload.Active;
       this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
-    }else{
+    }
+    else
+    {
+
       const CountryRegion = event.key;
       const Confirmed = event.value.reduce((prev, next) => {
                 return prev + parseInt(next.Confirmed, 10);
@@ -68,21 +87,7 @@ export class AppComponent implements OnInit{
               }, 0);
       this._chart.chart({CountryRegion, Confirmed, Death, Recovered, Active});
 
-      if ( event.key === 'France'){
-        let coor = [2.3514616, 48.8566969];
-        let zoom = 5;
-        return this._mapView.mapCenter(coor, zoom);
-      } else if (event.key === 'United Kingdom'){
-        let coor = [-0.12755, 51.507222];
-        let zoom = 5;
-        return this._mapView.mapCenter(coor, zoom);
-      } else {
-        let coor = [event.value[0].Long_, event.value[0].Lat];
-        let zoom = 5;
-        this._mapView.mapCenter(coor, zoom);
-      }
-
-      // console.log(event);
+      this.getCoordonate(event);
 
     }
 
