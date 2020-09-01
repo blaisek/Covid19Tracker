@@ -14,7 +14,7 @@ export class MapService {
 
   constructor() { }
 
-    mapCenter(options, zoom) {
+    mapCenter(options:number[], zoom:number) {
 
       let coor = {
         options,

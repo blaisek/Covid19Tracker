@@ -15,10 +15,7 @@
             <ion-item
               (click)="handleAction(item)"
               *ngFor= "let item of data$|async|groupBy:'Country_Region'|filtre:search;let i = index">
-              <ion-chip mode="ios" slot="start">
-                {{i + 1}}
-              </ion-chip>
-              <ion-label>{{item?.key}} </ion-label>
+              <ion-label>{{item?.key}}</ion-label>
               <ion-badge color="danger" mode="ios" slot="end">
                 {{item?.value|totalBy:"Deaths"}}
               </ion-badge>
@@ -28,7 +25,7 @@
     </ion-menu>
   <ion-content id="main">
       <ion-toolbar>
-        <ion-menu-button color="primary" slot="start"></ion-menu-button>
+        <ion-menu-button menuId="main" color="primary" slot="start"></ion-menu-button>
       </ion-toolbar>
     <ion-card>
     <app-map [data]="data$|async|groupBy:'Country_Region'"
