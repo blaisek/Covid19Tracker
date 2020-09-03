@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { GithubApiService } from './Service/github-api.service';
 import { Observable } from 'rxjs';
 import { ChartService } from './Service/chart.service';
@@ -13,7 +13,6 @@ import { MapService } from './Service/map.service';
 
 
 export class AppComponent implements OnInit{
-
   title = 'Covid19Tracker';
   data$: Observable<any>;
 

@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1598689420170,
+  "timestamp": 1599128829099,
   "index": "https://blaisek.github.io/Covid19Tracker/index.html",
   "assetGroups": [
     {
@@ -182,8 +182,8 @@
         "https://blaisek.github.io/Covid19Tracker/common-es5.5b421166af724340b2da.js",
         "https://blaisek.github.io/Covid19Tracker/favicon.ico",
         "https://blaisek.github.io/Covid19Tracker/index.html",
-        "https://blaisek.github.io/Covid19Tracker/main-es2015.eec8d045263b89e7c743.js",
-        "https://blaisek.github.io/Covid19Tracker/main-es5.eec8d045263b89e7c743.js",
+        "https://blaisek.github.io/Covid19Tracker/main-es2015.6d2fa0a3215c1ead0c44.js",
+        "https://blaisek.github.io/Covid19Tracker/main-es5.6d2fa0a3215c1ead0c44.js",
         "https://blaisek.github.io/Covid19Tracker/manifest.webmanifest",
         "https://blaisek.github.io/Covid19Tracker/polyfills-core-js-es2015.cd94bb94abe4de4673b0.js",
         "https://blaisek.github.io/Covid19Tracker/polyfills-core-js-es5.cd94bb94abe4de4673b0.js",
@@ -399,9 +399,9 @@
     "https://blaisek.github.io/Covid19Tracker/common-es2015.5b421166af724340b2da.js": "c5509e11c5587772455bf9641550b925e8514f10",
     "https://blaisek.github.io/Covid19Tracker/common-es5.5b421166af724340b2da.js": "ff4e7119b00ca4529055be042a96890952384d5b",
     "https://blaisek.github.io/Covid19Tracker/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://blaisek.github.io/Covid19Tracker/index.html": "823d5a7564417078e808bd41ad9ba30744c0cb52",
-    "https://blaisek.github.io/Covid19Tracker/main-es2015.eec8d045263b89e7c743.js": "8490f2d567810e5777aa09b65494d702d62e5b1a",
-    "https://blaisek.github.io/Covid19Tracker/main-es5.eec8d045263b89e7c743.js": "b88f914aa77141296fbe3845157d764d46f12255",
+    "https://blaisek.github.io/Covid19Tracker/index.html": "99be7e2c3dcd88d85dacec6d8181a614c10b3304",
+    "https://blaisek.github.io/Covid19Tracker/main-es2015.6d2fa0a3215c1ead0c44.js": "e0b700a13261741592c35f53c3970045bd95e491",
+    "https://blaisek.github.io/Covid19Tracker/main-es5.6d2fa0a3215c1ead0c44.js": "afe0341c4191ea6b0da6e474c112a037b369ca04",
     "https://blaisek.github.io/Covid19Tracker/manifest.webmanifest": "c22989d66e924a7e161848aaafaa24b6a7caa293",
     "https://blaisek.github.io/Covid19Tracker/polyfills-core-js-es2015.cd94bb94abe4de4673b0.js": "fe18301772fedd9faed9155d0253b25bad547329",
     "https://blaisek.github.io/Covid19Tracker/polyfills-core-js-es5.cd94bb94abe4de4673b0.js": "2238555b018c094b6a5445b2ea64d26959264b3a",
